@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { BankAccount } from '../../../interfaces/resources/bank/bank-account';
+import { Transaction } from '../../../interfaces/resources/bank/transaction';
 import { ApiService } from '../../../services/api/api.service';
 
 @Component({
@@ -21,6 +22,10 @@ export class BankAccountComponent {
     private _bankAccount: BankAccount;
 
     constructor(private api: ApiService) {
+    }
+
+    trackByFn(index: number, transaction: Transaction): string {
+        return transaction.id
     }
 
 }
