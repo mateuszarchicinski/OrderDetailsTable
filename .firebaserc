@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "myfinancecube"
+  },
+  "targets": {
+    "myfinancecube": {
+      "hosting": {
+        "prod": [
+          "myfinancecube"
+        ],
+        "stage": [
+          "myfinancecube-stage"
+        ]
+      }
+    }
+  }
+}

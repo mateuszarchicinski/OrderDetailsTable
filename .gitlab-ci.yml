@@ -1,0 +1,27 @@
+image: davidkassa/yarn-angular-cli-firebase-tools
+
+cache:
+  paths:
+    - node_modules/
+
+deploy_stage:
+  stage: deploy
+  environment: Staging
+  only:
+    - dev
+  before_script:
+    - npm install
+  script:
+    - ng build --environment=staging
+    - firebase deploy -m "Pipeline ID $CI_PIPELINE_ID" --only hosting:stage --project myfinancecube --token $FIREBASE_TOKEN
+    
+deploy_prod:
+  stage: deploy
+  environment: Production
+  only:
+    - master
+  before_script:
+    - npm install
+  script:
+    - ng build --environment=prod
+    - firebase deploy -m "Pipeline ID $CI_PIPELINE_ID" --only hosting:prod --project myfinancecube --token $FIREBASE_TOKEN

@@ -1,0 +1,35 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="jumbotron">
+
+      <app-table [title]="bankAccount.name" [description]="bankAccount.number">
+
+        <thead>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Merchant</th>
+          <th>Spent</th>
+          <th>Received</th>
+          <th>Balance</th>
+          <th>Type</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let transaction of bankAccount.transactions">
+            <td>{{transaction.dateTime | date: 'd/M/yy, h:mm a'}}</td>
+            <td>{{transaction.description}}</td>
+            <td>{{transaction.merchantName}}</td>
+            <td *ngIf="transaction.spent > 0">{{transaction.spent | currency:'GBP'}}</td>
+            <td *ngIf="transaction.spent == 0"></td>
+            <td *ngIf="transaction.received > 0">{{transaction.received | currency:'GBP'}}</td>
+            <td *ngIf="transaction.received == 0"></td>
+            <td>{{transaction.accountBalance | currency:'GBP'}}</td>
+            <td>{{transaction.type}}</td>
+          </tr>
+        </tbody>
+
+      </app-table>
+
+    </div>
+  </div>
+</div>

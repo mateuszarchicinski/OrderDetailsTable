@@ -1,0 +1,14 @@
+.logo-img {
+    text-align: center;
+    width: inherit;
+    display: list-item;
+    margin: 10px;
+}
+.logo-img-box {
+    position: initial !important;
+}
+
+.simple-text {
+    text-transform: none !important;
+    font-size: 23px !important;
+}

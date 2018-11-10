@@ -1,0 +1,24 @@
+.container-fluid {
+    display: block;
+}
+
+.navbar-main {
+    display:flex; 
+    justify-content:flex-end; 
+    align-items: flex-start;
+}
+
+.navbar-ul-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.title-container {
+    margin-top: 50px;
+}
+
+.title-header {
+    margin: 0px 0px 0px 30px;
+}
