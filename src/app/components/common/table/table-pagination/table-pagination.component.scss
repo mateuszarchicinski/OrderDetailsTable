@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-pagination {
+  &-list {
+    display: flex;
+
+    li {
+      list-style: none;
+      margin-left: 2px;
+    }
+  }
+
+  &-btn {
+    background: transparent;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 2px 8px;
+    border: 0;
+    outline: 0;
+
+    &.active {
+      background: linear-gradient(60deg, #ef5350, #f44336);
+      font-weight: 800;
+      color: #fff;
+    }
+  }
+}

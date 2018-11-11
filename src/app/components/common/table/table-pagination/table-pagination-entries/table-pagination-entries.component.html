@@ -1,3 +1,9 @@
-<p>
-  table-pagination-entries works!
-</p>
+Show
+<select class="form-control-select"
+        (change)="handleEntryNumberChange($event.target.value)">
+    <option [value]="entryNumber"
+            *ngFor="let entryNumber of entryNumbers; trackBy: trackByFn">
+        {{ entryNumber }}
+    </option>
+</select>
+entries

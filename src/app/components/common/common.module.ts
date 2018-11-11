@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TableComponent } from './table/table.component';
 import { TableHeaderComponent } from './table/table-header/table-header.component';
@@ -19,6 +21,10 @@ const APP_COMMON_COMPONENTS = [
 ];
 
 @NgModule({
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+    ],
     declarations: [
         ...APP_COMMON_COMPONENTS,
     ],

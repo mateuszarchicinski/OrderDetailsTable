@@ -1,3 +1,40 @@
-<p>
-  table-filter works!
-</p>
+<form autocomplete="off"
+      novalidate
+      class="table-filter-form"
+      [formGroup]="form"
+      *ngIf="form">
+
+    <span class="fa fa-filter" aria-hidden="true"></span>
+
+    <ng-container *ngFor="let filter of filtersModel; trackBy: filterTracker">
+        <ng-container *ngIf="!filter.options; else elseTmplBlok">
+            <div class="table-filter-control">
+                <label>
+                    {{ filter.name }}:
+                    <input class="form-control-input"
+                           [formControlName]="filter.id"/>
+                </label>
+            </div>
+        </ng-container>
+        <ng-template #elseTmplBlok>
+            <div class="table-filter-control">
+                <label>
+                    {{ filter.name }}:
+                    <select class="form-control-select"
+                            [formControlName]="filter.id">
+                        <option [value]="option.value"
+                                *ngFor="let option of filter.options; trackBy: optionTracker">
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </ng-template>
+    </ng-container>
+
+    <button class="table-filter-btn"
+            (click)="handleFiltersChange()">
+        <span class="fa fa-search" aria-hidden="true"></span>
+    </button>
+
+</form>

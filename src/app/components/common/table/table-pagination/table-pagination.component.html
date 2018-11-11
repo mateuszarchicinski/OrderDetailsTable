@@ -1,3 +1,43 @@
-<p>
-  table-pagination works!
-</p>
+<div>
+    Showing <span class="text-bolded">{{ displayedNumberOfEntries }}</span> of <span class="text-bolded">{{ numberOfEntries }}</span>
+    entries
+</div>
+<div>
+    <ul class="table-pagination-list">
+        <li>
+            <button class="table-pagination-btn"
+                    [class.text-muted]="isFirstPageChosen"
+                    (click)="!isFirstPageChosen && pageNumberChange.emit(firstPageNumber)">
+                First Page
+            </button>
+        </li>
+        <li>
+            <button class="table-pagination-btn"
+                    [class.text-muted]="isFirstPageChosen"
+                    (click)="!isFirstPageChosen && pageNumberChange.emit(activePageNumber - 1)">
+                Previous Page
+            </button>
+        </li>
+        <li *ngFor="let pageNumber of pageNumbers; trackBy: trackByFn">
+            <button class="table-pagination-btn"
+                    [class.active]="pageNumber === activePageNumber"
+                    (click)="pageNumberChange.emit(pageNumber)">
+                {{ pageNumber }}
+            </button>
+        </li>
+        <li>
+            <button class="table-pagination-btn"
+                    [class.text-muted]="isLastPageChosen"
+                    (click)="!isLastPageChosen && pageNumberChange.emit(activePageNumber + 1)">
+                Next Page
+            </button>
+        </li>
+        <li>
+            <button class="table-pagination-btn"
+                    [class.text-muted]="isLastPageChosen"
+                    (click)="!isLastPageChosen && pageNumberChange.emit(lastPageNumber)">
+                Last Page
+            </button>
+        </li>
+    </ul>
+</div>

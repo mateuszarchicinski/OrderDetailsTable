@@ -6,36 +6,56 @@
                        [description]="bankAccount.number">
 
                 <app-table-header>
-                    <app-table-pagination-entries></app-table-pagination-entries>
-                    <app-table-filter></app-table-filter>
+                    <app-table-pagination-entries [activeEntryNumber]="data.activeEntryNumber"
+                                                  [entryNumbers]="data.entryNumbers"
+                                                  (entryNumberChange)="data.handleEntryNumberChange($event)">
+                    </app-table-pagination-entries>
+                    <app-table-filter [filtersModel]="tableFiltersModel"
+                                      [filters]="data.filters"
+                                      (filtersChange)="data.handleFiltersChange($event)">
+                    </app-table-filter>
                 </app-table-header>
 
+                <app-table-data #data
+                                [config]="tableDataConfig"
+                                [data]="bankAccount.transactions">
+                </app-table-data>
+
                 <thead>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Merchant</th>
-                <th>Spent</th>
-                <th>Received</th>
-                <th>Balance</th>
-                <th>Type</th>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Merchant</th>
+                    <th>Spent</th>
+                    <th>Received</th>
+                    <th>Balance</th>
+                    <th>Type</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                <tr *ngFor="let transaction of bankAccount.transactions; trackBy: trackByFn">
-                    <td>{{transaction.dateTime | date: 'd/M/yy, h:mm a'}}</td>
-                    <td>{{transaction.description}}</td>
-                    <td>{{transaction.merchantName}}</td>
-                    <td *ngIf="transaction.spent > 0">{{transaction.spent | currency:'GBP'}}</td>
-                    <td *ngIf="transaction.spent == 0"></td>
-                    <td *ngIf="transaction.received > 0">{{transaction.received | currency:'GBP'}}</td>
-                    <td *ngIf="transaction.received == 0"></td>
-                    <td>{{transaction.accountBalance | currency:'GBP'}}</td>
-                    <td>{{transaction.type}}</td>
+                <tr *ngFor="let entries of data.entries; trackBy: trackByFn">
+                    <td>{{ entries.dateTime | date: 'd/M/yy, h:mm a' }}</td>
+                    <td>{{ entries.description }}</td>
+                    <td>{{ entries.merchantName }}</td>
+                    <td *ngIf="entries.spent > 0">{{ entries.spent | currency:'GBP' }}</td>
+                    <td *ngIf="entries.spent === 0"></td>
+                    <td *ngIf="entries.received > 0">{{ entries.received | currency:'GBP' }}</td>
+                    <td *ngIf="entries.received === 0"></td>
+                    <td>{{ entries.accountBalance | currency:'GBP' }}</td>
+                    <td>{{ entries.type }}</td>
                 </tr>
                 </tbody>
 
                 <app-table-footer>
-                    <app-table-pagination></app-table-pagination>
+                    <app-table-pagination [displayedNumberOfEntries]="data.displayedNumberOfEntries"
+                                          [numberOfEntries]="data.numberOfEntries"
+                                          [firstPageNumber]="data.firstPageNumber"
+                                          [lastPageNumber]="data.lastPageNumber"
+                                          [activePageNumber]="data.activePageNumber"
+                                          [pageNumbers]="data.pageNumbers"
+                                          (pageNumberChange)="data.handlePageNumberChange($event)">
+                    </app-table-pagination>
                 </app-table-footer>
 
             </app-table>

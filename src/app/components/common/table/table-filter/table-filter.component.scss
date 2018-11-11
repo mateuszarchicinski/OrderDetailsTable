@@ -1,0 +1,24 @@
+.table-filter {
+  &-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &-control {
+    margin-left: 15px;
+  }
+
+  &-btn {
+    background: linear-gradient(60deg, #ef5350, #f44336);
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+    margin: 0 0 2px 5px;
+  }
+}
+
+label {
+  margin: 0;
+}

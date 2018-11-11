@@ -1,15 +1,36 @@
 .jumbotron {
-    background-color: #F9F9F9;
-    padding-top: 20px;
-    padding-bottom: 20px;
+  background-color: #F9F9F9;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.mat-dialog-custom > mat-dialog-container{
-    max-width: 350px;
-    border-radius: 5px;
-    text-align: center;
+.mat-dialog-custom > mat-dialog-container {
+  max-width: 350px;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .btn-default {
-    background-color: $brand-primary !important;
+  background-color: $brand-primary !important;
+}
+
+
+// To move somewhere
+.text-bolded {
+  font-weight: 800;
+}
+
+.form-control {
+  &-select {
+    appearance: menulist;
+  }
+
+  &-input,
+  &-select {
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 2px;
+    outline: 0;
+    padding: 4px;
+    margin: 0 5px;
+  }
 }
