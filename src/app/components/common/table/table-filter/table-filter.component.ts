@@ -36,7 +36,7 @@ export class TableFilterComponent implements OnInit {
 
     private generateForm(): FormGroup {
         return this.filtersModel ? this.formBuilder.group(this.filtersModel.reduce((controls, filter) => {
-            return {...controls, [filter.id]: null};
+            return {...controls, [filter.id]: [null]};
         }, {})) : null;
     }
 

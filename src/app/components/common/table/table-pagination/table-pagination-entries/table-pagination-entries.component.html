@@ -1,9 +1,15 @@
-Show
-<select class="form-control-select"
-        (change)="handleEntryNumberChange($event.target.value)">
-    <option [value]="entryNumber"
-            *ngFor="let entryNumber of entryNumbers; trackBy: trackByFn">
-        {{ entryNumber }}
-    </option>
-</select>
-entries
+<form autocomplete="off"
+      novalidate
+      [formGroup]="form"
+      *ngIf="form">
+    Show
+    <select class="form-control-select"
+            formControlName="entryNumber"
+            (change)="handleEntryNumberChange($event.target.value)">
+        <option [value]="entryNumber"
+                *ngFor="let entryNumber of entryNumbers; trackBy: trackByFn">
+            {{ entryNumber }}
+        </option>
+    </select>
+    entries
+</form>

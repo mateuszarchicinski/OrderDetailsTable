@@ -5,6 +5,7 @@ const TABLE_DATA_COMPONENT_SELECTOR = 'app-table-data';
 
 export interface TableDataConfig {
     activeEntryNumber: number;
+    entryNumbers: number[];
     activePageNumber: number;
     filters?: TableDataFilters;
 }
@@ -19,18 +20,38 @@ export interface TableDataConfig {
 export class TableDataComponent<T> implements OnInit {
 
     @Input() config: TableDataConfig;
-    @Input() data: T[];
+
+    private _data: T[];
+
+    @Input() set data(v: T[]) {
+        this._data = v;
+    }
+
+    get data(): T[] {
+        const data = this._data || [];
+        const isFilter = Object.values(this.filters).some(v => !!v);
+        return isFilter ?
+            data.filter(e =>
+                Object.keys(this.filters).every(key => {
+                    const value = this.filters[key];
+                    return !!value ? (new RegExp(value, 'i')).test(e[key]) : true;
+                }))
+            : data;
+    }
 
     get entries(): T[] {
-        return this.data.slice(this.data.length - (this.activeEntryNumber || 5));
+        const data = this.data;
+        const endIndex = (this.activePageNumber * this.activeEntryNumber);
+        const startIndex = endIndex - this.activeEntryNumber;
+        return data.slice(startIndex, endIndex);
     }
 
     get displayedNumberOfEntries(): number {
-        return this.entries.length;
+        return this.activeEntryNumber > this.entries.length ? this.entries.length : this.activeEntryNumber;
     }
 
     get numberOfEntries(): number {
-        return this.entries.length;
+        return this.data.length;
     }
 
     private _activeEntryNumber: number;
@@ -39,8 +60,10 @@ export class TableDataComponent<T> implements OnInit {
         return this._activeEntryNumber;
     }
 
+    private _entryNumbers: number[];
+
     get entryNumbers(): number[] {
-        return [5, 10, 15, 20, 25];
+        return this._entryNumbers;
     }
 
     get firstPageNumber(): number {
@@ -48,23 +71,26 @@ export class TableDataComponent<T> implements OnInit {
     }
 
     get lastPageNumber(): number {
-        return 5;
+        return this.pageNumbers[this.pageNumbers.length - 1];
     }
 
     private _activePageNumber: number;
 
     get activePageNumber(): number {
-        return this._activePageNumber;
+        return this._activePageNumber > this.lastPageNumber ? this.lastPageNumber : this._activePageNumber;
     }
 
     get pageNumbers(): number[] {
-        return [1, 2, 3, 4, 5];
+        const length = Math.ceil(this.data.length / this.activeEntryNumber);
+        return Array
+            .apply(null, {length})
+            .map((_, index) => index + 1);
     }
 
     private _filters: TableDataFilters;
 
     get filters(): TableDataFilters {
-        return this._filters;
+        return this._filters || {};
     }
 
     handleEntryNumberChange(entryNumber: number): void {
@@ -81,6 +107,7 @@ export class TableDataComponent<T> implements OnInit {
 
     ngOnInit(): void {
         this._activeEntryNumber = this.config.activeEntryNumber;
+        this._entryNumbers = this.config.entryNumbers;
         this._activePageNumber = this.config.activePageNumber;
         this._filters = this.config.filters;
     }

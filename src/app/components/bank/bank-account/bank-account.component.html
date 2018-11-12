@@ -5,6 +5,11 @@
             <app-table [title]="bankAccount.name"
                        [description]="bankAccount.number">
 
+                <app-table-data #data
+                                [config]="tableDataConfig"
+                                [data]="bankAccount.transactions">
+                </app-table-data>
+
                 <app-table-header>
                     <app-table-pagination-entries [activeEntryNumber]="data.activeEntryNumber"
                                                   [entryNumbers]="data.entryNumbers"
@@ -16,13 +21,9 @@
                     </app-table-filter>
                 </app-table-header>
 
-                <app-table-data #data
-                                [config]="tableDataConfig"
-                                [data]="bankAccount.transactions">
-                </app-table-data>
-
                 <thead>
                 <tr>
+                    <th>Lp</th>
                     <th>Date</th>
                     <th>Description</th>
                     <th>Merchant</th>
@@ -33,8 +34,9 @@
                 </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="counter">
                 <tr *ngFor="let entries of data.entries; trackBy: trackByFn">
+                    <td><span class="counter-item"></span></td>
                     <td>{{ entries.dateTime | date: 'd/M/yy, h:mm a' }}</td>
                     <td>{{ entries.description }}</td>
                     <td>{{ entries.merchantName }}</td>

@@ -28,9 +28,10 @@ export class BankAccountComponent {
     }
 
     get tableDataConfig(): TableDataConfig {
-        const activeEntryNumber = 5;
+        const entryNumbers = [5, 25, 100];
+        const activeEntryNumber = entryNumbers[1];
         const activePageNumber = 1;
-        return {activeEntryNumber, activePageNumber};
+        return {activeEntryNumber, entryNumbers, activePageNumber};
     }
 
     get tableFiltersModel(): TableFilter[] {
@@ -56,7 +57,7 @@ export class BankAccountComponent {
             {
                 name: 'Type',
                 id: 'type',
-                options: transactionTypes,
+                options: [{name: 'NONE', value: ''}, ...transactionTypes],
             }
         ]
     }
